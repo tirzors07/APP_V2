@@ -10,7 +10,7 @@ const Recetas = () => {
     const [preMsgOpen, setPreMsg] = useState(false);
     const [foundPrescription, setFoundPrescription] = useState(null);
     const [imgPath, setImgPath] = useState("");
-    const basePath = "http://localhost:3000/server";
+    const basePath = "http://172.210.233.153:3000/server";
 
     //Detalles de nuevo medicamento
     const [medicines, setMedicines] = useState([])
@@ -25,7 +25,7 @@ const Recetas = () => {
 
     const getPrescriptions = async() => {
         try{
-            const response = await axios.get("http://localhost:3000/prescriptions/get_prescriptions", {
+            const response = await axios.get("http://172.210.233.153:3000/prescriptions/get_prescriptions", {
               params: {page} 
             });
             const presWithNames = await Promise.all(response.data.prescriptions.map(async (p) => {
@@ -46,7 +46,7 @@ const Recetas = () => {
 
     const handleCreateOrder = async() => {
         try{
-            const response = await axios.post("http://localhost:3000/order/order", {
+            const response = await axios.post("http://172.210.233.153:3000/order/order", {
                 user_id: foundPrescription.user_id,
                 prescription_id: foundPrescription.prescription_id,
             });
@@ -64,7 +64,7 @@ const Recetas = () => {
                 alert("No se pueden añadir mas medicamentos a esta receta, máximo 5");
                 return;
             }
-            const response = await axios.post("http://localhost:3000/medicines/new_med", {
+            const response = await axios.post("http://172.210.233.153:3000/medicines/new_med", {
                 nombre: medName,
                 dosis: medDosis,
                 frecuencia: medFreq,
@@ -105,7 +105,7 @@ const Recetas = () => {
 
     const getPatientName = async (userId) => {
         try{
-          const response = await axios.get(`http://localhost:3000/user/get_user/${userId}`);
+          const response = await axios.get(`http://172.210.233.153:3000/user/get_user/${userId}`);
           return response.data;
         } catch(error){
           console.error("Error al obtener nombre de usuario");
